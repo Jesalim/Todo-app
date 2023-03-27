@@ -47,7 +47,6 @@ class ApplicationController < ActionController::API
         end
     end
 
-
     # store user id in session
     def save_user(id)
         session[:uid] = id
@@ -71,6 +70,16 @@ class ApplicationController < ActionController::API
 
     # get logged in user
     def user
+        User.find(@uid) 
+    end
+
+    # save user's id
+    def save_user_id(token)
+        @uid = decode(token)[0]["data"]["uid"].to_i
+    end
+
+    # get logged in user (session)
+    def user_session
         User.find(session[:uid].to_i) 
     end
 
